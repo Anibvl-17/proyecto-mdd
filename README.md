@@ -3,9 +3,9 @@
 Este repositorio contiene el proyecto semestral de Metodología del Desarrollo, usando Node.js, 
 Express y PostgreSQL. Este proyecto consiste en un sistema web para una Junta de Vecinos.
 
-# Guía para clonar, configurar y ejecutar el servidor localmente.
-
 ---
+
+## Guía para clonar, configurar y ejecutar el servidor localmente.
 
 ## 📦 Requisitos
 
