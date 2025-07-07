@@ -17,9 +17,12 @@ export async function getActivities(req, res) {
         .status(404)
         .json({ message: "No se encontraron actividades." });
 
+    // Las actividades pasadas no son visibles en el sistema, por lo tanto se filtran.
+    const visibleActivities = activities.filter((activity) => activity.date > new Date())
+
     res
       .status(200)
-      .json({ message: "Actividades encontradas.", data: activities });
+      .json({ message: "Actividades encontradas.", data: visibleActivities });
   } catch (error) {
     console.error(
       "Error en activity.controller.js -> getActivities(): ",
