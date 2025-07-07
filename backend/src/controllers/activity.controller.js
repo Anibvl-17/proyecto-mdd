@@ -41,6 +41,11 @@ export async function getActivityById(req, res) {
     if (!activity)
       return res.status(404).json({ message: "No se encontró la actividad." });
 
+    // Recordar que las actividades pasadas no son visibles en el sistema.
+    if (activity.date < new Date()) {
+      return res.status(403).json({ message: "La actividad ya finalizó." });
+    }
+
     res.status(200).json({ message: "Actividad encontrada", data: activity });
   } catch (error) {
     console.error(
