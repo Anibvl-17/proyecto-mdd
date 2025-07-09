@@ -17,7 +17,8 @@ export const ActivityEntity = new EntitySchema({
     },
     description: {
       type: String,
-      default: () => "No hay descripción disponible.",
+      default: () => "'No hay descripción disponible.'",
+      // Nota: Sin las comillas simples daba error al crear la base de datos
     },
     date: {
       type: "timestamp",
