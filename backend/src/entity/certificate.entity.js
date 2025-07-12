@@ -7,15 +7,15 @@ export const CertificateEntity = new EntitySchema({
   tableName: "certificates",
     columns: {
         id: {
-        type: "int",
+        type: Number,
         primary: true,
         generated: true,
         },
-        direction: {
+        rut: {
         type: String,
         nullable: false,
         },
-        type: {
+        direction: {
         type: String,
         nullable: false,
         },
