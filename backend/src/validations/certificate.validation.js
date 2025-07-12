@@ -9,12 +9,6 @@ export const createValidation = Joi.object({
     "string.empty": "La dirección no puede estar vacía.",
     "string.max": "La dirección no puede exceder los 100 caracteres.",
     }),
-    type: Joi.string().valid("residencia").required().messages({
-    "any.required": "El tipo es obligatorio.",
-    "string.base": "El tipo de certificado debe ser de tipo string.",
-    "string.empty": "El tipo de certificado no puede estar vacío.",
-    "any.only": "El tipo de certificado debe ser 'residencia'.",
-    }),
     reason: Joi.string().required().messages({
     "any.required": "El motivo es obligatorio.",
     "string.base": "El motivo debe ser de tipo string.",
