@@ -16,13 +16,7 @@ export async function createCertificate(req, res) {
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
     }
-
-    // Obtener datos del usuario autenticado
-    const user = req.user; 
-    if (!user || !user.rut) {
-      return res.status(401).json({ message: "Usuario no autenticado." });
-    }
-
+    
     const rut = user.rut;
 
     // Verificar si existe un certificado asociado al rut del usuario
