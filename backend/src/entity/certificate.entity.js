@@ -7,7 +7,7 @@ export const CertificateEntity = new EntitySchema({
   tableName: "certificates",
     columns: {
         id: {
-        type: Number,
+        type: "int",
         primary: true,
         generated: true,
         },
@@ -21,6 +21,14 @@ export const CertificateEntity = new EntitySchema({
         },
         reason: {
         type: String,
+        nullable: false,
+        },
+        createdAt: {
+        type: "timestamp",
+        default: () => "CURRENT_TIMESTAMP",
+        },
+        expirationDate: {
+        type: "timestamp",
         nullable: false,
         },
     },
