@@ -9,11 +9,11 @@ export async function getPetition(req, res){
         const petitionRepository = AppDataSource.getRepository(Petition);
         const petitions = await petitionRepository.find();
 
-        res.status(200).json({message: 'Peticion encontrada: ', data: petitions});
+        res.status(200).json({message: 'Petición encontrada: ', data: petitions});
 
     }catch(error){
-        console.error("Error al conseguir la peticion: ",error);
-        res.status(500).json({message: "Error al conseguir la peticion."})
+        console.error("Error al conseguir la peticio: ",error);
+        res.status(500).json({message: "Error al conseguir la petición."})
     }
 }
 
@@ -24,13 +24,13 @@ export async function getPetitionId(req, res){
         const petition = await petitionRepository.findOne({ where:{id} });
 
         if(!petition) 
-            return res.status(404).json({message: "Peticion no encontrada"});
+            return res.status(404).json({message: "Petición no encontrada."});
 
-        res.status(200).json({message: "Peticion encontrada: ", data: petition});
+        res.status(200).json({message: "Petición encontrada: ", data: petition});
 
     }catch(error){
-        console.error("Error al conseguir la peticion: ", error);
-        res.status(500).json({message: "Error al conseguir la peticion."})
+        console.error("Error al conseguir la petición: ", error);
+        res.status(500).json({message: "Error al conseguir la petición."})
     }
 }
 
@@ -41,7 +41,7 @@ export async function createPetition(req, res){
         const {error} = createValidation.validate(req.body);
 
         if(error) 
-            return res.status(400).json({message: "Error al crear la peticion: ", error: error});
+            return res.status(400).json({message: "Error al crear la petición: ", error: error});
 
         const newPetition = petitionRepository.create({
             title, description,
@@ -49,11 +49,11 @@ export async function createPetition(req, res){
 
         await petitionRepository.save(newPetition);
 
-        res.status(200).json({message: "Peticion creada exitosamente", data: newPetition});
+        res.status(200).json({message: "Petición creada exitosamente.", data: newPetition});
 
     }catch(error){
-        console.error("Error al crear la peticion: ", error);
-        res.status(500).json({message: "Error al crear la peticion."});
+        console.error("Error al crear la petición: ", error);
+        res.status(500).json({message: "Error al crear la petición."});
     }
 }
 
@@ -65,23 +65,23 @@ export async function updatePetition(req, res){
         const petition = await petitionRepository.findOne({ where: {id} });
 
         if(!petition) 
-            return res.status(404).json({message: "Peticion no encontrada"});
+            return res.status(404).json({message: "Petición no encontrada."});
 
         const {error} = updateValidation.validate(req.body);
         
         if(error) 
-            return res.status(400).json({message: "Error al actualizar la peticion: ", error});
+            return res.status(400).json({message: "Error al actualizar la petición: ", error});
 
         petition.title = title || petition.title;
         petition.description = description || petition.description;
 
         await petitionRepository.save(petition);
 
-        res.status(200).json({message: "Peticion actualizada exitosamente: ", data:petition});
+        res.status(200).json({message: "Petición actualizada exitosamente: ", data:petition});
 
     }catch(error){
-        console.error("Error al actualizar la peticion: ",error);
-        res.status(500).json({message: "Error al actualizar la peticion."})
+        console.error("Error al actualizar la petición: ",error);
+        res.status(500).json({message: "Error al actualizar la petición."})
     }
 }
 
@@ -93,29 +93,29 @@ export async function setRevised(req, res){
         const petition = await petitionRepository.findOne({ where: {id} });
 
         if(!petition) 
-            return res.status(404).json({message: "Peticion no encontrada"});
+            return res.status(404).json({message: "Petición no encontrada."});
 
         const { error } = updateRevised.validate(req.body);
 
         if(error) 
-            return res.status(400).json({message: "Error al actualizar la peticion: ", error});
+            return res.status(400).json({message: "Error al actualizar la petición: ", error});
 
         if(petition.revised === true && revised === false)
-            return res.status(400).json({message: "No se puede cambiar una peticion ya revisada a no revisada"});
+            return res.status(400).json({message: "No se puede cambiar una petición ya revisada a no revisada."});
 
         if(petition.revised === false && revised === false)
-            return res.status(400).json({message: "No se puede cambiar una peticion no revisada a no revisada"});
+            return res.status(400).json({message: "No se puede cambiar una petición no revisada a no revisada."});
 
 
         petition.revised = revised;
 
         await petitionRepository.save(petition);
 
-        res.status(200).json({message: "Peticion actualizada exitosamente: ", data:petition});
+        res.status(200).json({message: "Petición actualizada exitosamente: ", data:petition});
 
     }catch{
-        console.error("Error al actualizar la peticion: ", error);
-        res.status(500).json({message: "Error al actualizar la peticion."});
+        console.error("Error al actualizar la petición: ", error);
+        res.status(500).json({message: "Error al actualizar la petición."});
     }
 }
 
@@ -126,14 +126,14 @@ export async function deletePetition(req, res){
         const petition = await petitionRepository.findOne({ where:{id} });
 
         if(!petition) 
-            return res.status(404).json({message: "Peticion no encontrada"});
+            return res.status(404).json({message: "Petición no encontrada."});
 
         await petitionRepository.remove(petition);
 
-        res.status(200).json({message: "Peticion eliminada exitosamente"});
+        res.status(200).json({message: "Petición eliminada exitosamente."});
 
     }catch(error){
-        console.error("Error al eliminar la peticion: ", error);
-        res.status(500).json({message: "Error al eliminar la peticion."})
+        console.error("Error al eliminar la petición: ", error);
+        res.status(500).json({message: "Error al eliminar la petición."})
     }
 }
