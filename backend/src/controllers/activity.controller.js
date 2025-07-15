@@ -17,12 +17,19 @@ export async function getActivities(req, res) {
         .status(404)
         .json({ message: "No se encontraron actividades." });
 
-    // Las actividades pasadas no son visibles en el sistema, por lo tanto se filtran.
-    const visibleActivities = activities.filter((activity) => activity.date > new Date())
+    // Las actividades pasadas no son visibles para los vecinos que no forman parte de la
+    // directiva, por lo tanto se filtran.
+    if (req.user.rol !== "administrador") {
+      const visibleActivities = activities.filter((activity) => activity.date > new Date())
+      return res
+        .status(200)
+        .json({ message: "Actividades encontradas.", data: visibleActivities });
+    }
 
+    // Envía todas las actividades disponibles, incluido las que ya finalizaron
     res
       .status(200)
-      .json({ message: "Actividades encontradas.", data: visibleActivities });
+      .json({ message: "Actividades encontradas.", data: activities });
   } catch (error) {
     console.error(
       "Error en activity.controller.js -> getActivities(): ",
