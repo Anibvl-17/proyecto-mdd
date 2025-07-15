@@ -11,6 +11,10 @@ export const PetitionEntity = new EntitySchema({
             primary: true,
             generated: true,
         },
+        userRut: {
+            type: String,
+            nullable: false,
+        },
         title:{
             type: String,
             nullable: true,
