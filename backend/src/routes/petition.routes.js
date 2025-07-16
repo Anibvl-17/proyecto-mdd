@@ -7,7 +7,6 @@ import { isVecino } from "../middleware/authorization.middleware.js";
 import { 
     getAllPetitions, 
     getUserPetitions, 
-    getPetitionId, 
     createPetition, 
     updatePetition, 
     deletePetition, 
@@ -25,7 +24,5 @@ router.get("/getUser", isVecino, getUserPetitions);
 router.post("/", isVecino, createPetition);
 router.put("/:id", isVecino, updatePetition); 
 router.delete("/:id", isVecino, deletePetition);
-
-router.get("/:id", getPetitionId);
 
 export default router;

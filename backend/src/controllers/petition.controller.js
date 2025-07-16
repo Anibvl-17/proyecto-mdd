@@ -38,23 +38,6 @@ export async function getUserPetitions(req, res){
     }
 }
 
-export async function getPetitionId(req, res){
-    try{
-        const petitionRepository = AppDataSource.getRepository(Petition);
-        const {id} = req.params;
-        const petition = await petitionRepository.findOne({ where:{id} });
-
-        if(!petition) 
-            return res.status(404).json({message: "Peticiónes no encontradas."});
-
-        res.status(200).json({message: "Peticiones encontradas: ", data: petition});
-
-    }catch(error){
-        console.error("Error al conseguir la petición: ", error);
-        res.status(500).json({message: "Error al conseguir la petición."})
-    }
-}
-
 export async function createPetition(req, res){
     try{
         const userRut = req.user.rut;
