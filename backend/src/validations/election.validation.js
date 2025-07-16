@@ -22,6 +22,7 @@ export const createElectionValidation = Joi.object({
     }),
 });
 
+
 //Validación para registrar una candidatura
 export const registerCandidatureValidation = Joi.object({
   vecinoId: Joi.number()
