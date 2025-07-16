@@ -9,7 +9,7 @@ export const createValidation = Joi.object({
         .pattern(/^[a-zA-Z0-9\s]+$/)
         .allow("")
         .messages({
-            "string.patter.base": "El título solo puede contener letras y números.",
+            "string.pattern.base": "El título solo puede contener letras y números.",
             "string.min": "El título debe tener al menos 3 caracteres.",
             "string.max": "El título no puede exceder los 50 caracteres.",
         }),
@@ -25,7 +25,7 @@ export const createValidation = Joi.object({
 })
     .unknown(false)
     .messages({
-        "object.unkown": "No se permiten campos adicionales.",
+        "object.unknown": "No se permiten campos adicionales.",
     });
 
 export const updateValidation = Joi.object({
@@ -35,7 +35,7 @@ export const updateValidation = Joi.object({
         .pattern(/^[a-zA-Z0-9\s]+$/)
         .allow("")
         .messages({
-            "string.patter.base": "El título solo puede contener letras y números.",
+            "string.pattern.base": "El título solo puede contener letras y números.",
             "string.min": "El título debe tener al menos 3 caracteres.",
             "string.max": "El título no puede exceder los 50 caracteres.",
         }),
@@ -49,17 +49,19 @@ export const updateValidation = Joi.object({
 })
     .unknown(false)
     .messages({
-        "object.unkown": "No se permiten campos adicionales.",
+        "object.unknown": "No se permiten campos adicionales.",
     });
 
 export const updateRevised = Joi.object({
     revised: Joi.boolean()
         .required()
+        .strict()
         .messages({
-            "string.empty": "El estado de revisión es obligatorio.",
+            "any.required": "El estado de revisión es obligatorio.",
+            "boolean.base": "Solo se permiten valores booleanos.",
         }),
 })
     .unknown(false)
     .messages({
-        "object.unkown": "No se permiten campos adicionales.",
+        "object.unkonwn": "No se permiten campos adicionales.",
     });
