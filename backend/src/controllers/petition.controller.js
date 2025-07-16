@@ -2,17 +2,38 @@
 
 import Petition from "../entity/petition.entity.js";
 import { AppDataSource } from "../config/configDb.js";
-import { updateValidation, createValidation, updateRevised } from "../validations/petition.validation.js";
+import { 
+    updateValidation, 
+    createValidation, 
+    updateRevised 
+} from "../validations/petition.validation.js";
 
-export async function getPetition(req, res){
+export async function getAllPetitions(req, res){
     try{
         const petitionRepository = AppDataSource.getRepository(Petition);
         const petitions = await petitionRepository.find();
 
-        res.status(200).json({message: 'Petición encontrada: ', data: petitions});
+        res.status(200).json({message: "Petición encontrada: ", data: petitions});
 
     }catch(error){
-        console.error("Error al conseguir la peticio: ",error);
+        console.error("Error al conseguir la petición: ",error);
+        res.status(500).json({message: "Error al conseguir la petición."})
+    }
+}
+
+export async function getUserPetitions(req, res){
+    try{
+        const userRut = req.user.rut;
+        const petitionRepository = AppDataSource.getRepository(Petition);
+        const userPetitions = await petitionRepository.find({ where: { userRut } });
+
+        if (userPetitions.length === 0)
+            return res.status(404).json({ message: "No se encontraron peticiones para este vecino." });
+
+        res.status(200).json({message: "Peticiones encontrada: ", data: userPetitions});
+
+    }catch(error){
+        console.error("Error al conseguir la petición: ",error);
         res.status(500).json({message: "Error al conseguir la petición."})
     }
 }
@@ -24,9 +45,9 @@ export async function getPetitionId(req, res){
         const petition = await petitionRepository.findOne({ where:{id} });
 
         if(!petition) 
-            return res.status(404).json({message: "Petición no encontrada."});
+            return res.status(404).json({message: "Peticiónes no encontradas."});
 
-        res.status(200).json({message: "Petición encontrada: ", data: petition});
+        res.status(200).json({message: "Peticiones encontradas: ", data: petition});
 
     }catch(error){
         console.error("Error al conseguir la petición: ", error);
@@ -36,15 +57,17 @@ export async function getPetitionId(req, res){
 
 export async function createPetition(req, res){
     try{
+        const userRut = req.user.rut;
         const petitionRepository = AppDataSource.getRepository(Petition);
         const {title, description} = req.body;
+
         const {error} = createValidation.validate(req.body);
 
         if(error) 
             return res.status(400).json({message: "Error al crear la petición: ", error: error});
 
         const newPetition = petitionRepository.create({
-            title, description,
+            userRut, title, description,
         });
 
         await petitionRepository.save(newPetition);
@@ -71,6 +94,12 @@ export async function updatePetition(req, res){
         
         if(error) 
             return res.status(400).json({message: "Error al actualizar la petición: ", error});
+
+        if(req.user.rut !== petition.userRut)
+            return res.status(401).json({message: "Petición no corresponde al usuario."});
+
+        if(petition.revised) 
+            return res.status(401).json({message: "Petición ya fue revisada."});
 
         petition.title = title || petition.title;
         petition.description = description || petition.description;
@@ -127,6 +156,12 @@ export async function deletePetition(req, res){
 
         if(!petition) 
             return res.status(404).json({message: "Petición no encontrada."});
+
+        if(req.user.rut !== petition.userRut)
+            return res.status(401).json({message: "Petición no corresponde al usuario."});
+
+        if(petition.revised)
+            return res.status(401).json({message: "Petición esta revisada, no se puede eliminar"});
 
         await petitionRepository.remove(petition);
 
