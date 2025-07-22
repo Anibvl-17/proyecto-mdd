@@ -1,6 +1,7 @@
 "use strict";
 
 import { EntitySchema, In } from "typeorm";
+import { UserEntity } from "./user.entity.js";
 
 export const CertificateEntity = new EntitySchema({
   name: "Certificate",
@@ -31,6 +32,14 @@ export const CertificateEntity = new EntitySchema({
         type: "timestamp",
         nullable: false,
         },
+    },
+   relations: {
+      user: {
+        type: "many-to-one",
+        target: UserEntity,
+        joinColumn: true,
+        nullable: false,
+      },
     },
 });
 
