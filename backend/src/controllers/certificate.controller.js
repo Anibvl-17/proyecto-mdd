@@ -136,10 +136,33 @@ export async function createCertificate(req, res) {
       });
       } else {
         const rut = req.user.rut;
-        const certificates = await certificateRepository.find({where: { rut } });
+        const certificates = await certificateRepository.find({
+          where: { rut },
+          order: { createdAt: "DESC" },
+          take: 1,
+        });
+
+        const certificate = certificates[0];
+        if (!certificate) {
+          return res.status(404).json({ 
+            message: "No se encontraron certificados para este usuario." 
+          });
+        }
+        // Generar el documento del certificado de residencia
+        const document = generateCertificate({
+          rut: certificate.rut,
+          username: req.user.username,
+          direction: certificate.direction,
+          reason: certificate.reason,
+          createdAt: certificate.createdAt,
+        });
+
         return res.status(200).json({
           message: "Certificado del usuario obtenido exitosamente.",
-          data: certificates,
+          data: {
+            ...certificate,
+            document,
+          },
         });
       }
     } catch (error) {
