@@ -149,6 +149,7 @@ export async function createCertificate(req, res) {
           });
         }
         // Generar el documento del certificado de residencia
+        // Actualizado para incluir el documento
         const document = generateCertificate({
           rut: certificate.rut,
           username: req.user.username,
