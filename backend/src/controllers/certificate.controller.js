@@ -7,13 +7,14 @@ import {
   createValidation,
 } from "../validations/certificate.validation.js";
 
-function generateCertificate({ rut, direction, reason, createdAt, expirationDate, username }) {
+function generateCertificate({ rut, username, direction, reason, createdAt}) {
   const fechaEmision = new Date(createdAt).toLocaleDateString("es-CL");
   return `
       <div style="font-family: Arial, sans-serif; border: 2px solid #333; padding: 24px; max-width: 600px;">
         <h2 style="text-align:center;">Certificado de Residencia</h2>
         <p>La Junta de Vecinos certifica que:</p>
         <p><strong>Nombre completo:</strong> ${username}</p>
+        <p><strong>Rut:</strong> ${rut}</p>
         <p><strong>Dirección:</strong> ${direction}</p>
         <p><strong>Fecha de emisión:</strong> ${fechaEmision}</p>
         <p><strong>Finalidad:</strong> ${reason}</p>
@@ -101,7 +102,14 @@ export async function createCertificate(req, res) {
     await certificateRepository.save(newCertificate);
 
     // Generar el documento del certificado de residencia
-    const document = generateCertificate(newCertificate);
+    // Actualizado para incluir el nombre de usuario
+    const document = generateCertificate({
+      rut: newCertificate.rut,
+      username: user.username,
+      direction: newCertificate.direction,
+      reason: newCertificate.reason,
+      createdAt: newCertificate.createdAt,
+    });
 
     res.status(201).json({
       message: "Certificado creado exitosamente.",
