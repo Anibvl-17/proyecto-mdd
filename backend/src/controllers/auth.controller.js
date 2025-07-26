@@ -83,10 +83,11 @@ export async function login(req, res) {
 
     // Generar un token JWT y enviarlo al cliente
     const payload = {
+      id: userFound.id,
       username: userFound.username,
       email: userFound.email,
       rut: userFound.rut,
-      rol: userFound.role,
+      role: userFound.role,
     };
     const accessToken = jwt.sign(payload, SESSION_SECRET, { expiresIn: "1d" });
 
