@@ -8,7 +8,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const user = JSON.parse(sessionStorage.getItem("usuario")) || "";
-  const userRole = user?.rol;
+  const userRole = user?.role;
 
   const logoutSubmit = () => {
     try {
