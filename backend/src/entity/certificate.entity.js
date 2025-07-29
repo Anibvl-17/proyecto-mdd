@@ -39,6 +39,7 @@ export const CertificateEntity = new EntitySchema({
         target: UserEntity,
         joinColumn: true,
         nullable: false,
+        onDelete: "CASCADE",
       },
     },
 });
