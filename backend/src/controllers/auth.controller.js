@@ -39,8 +39,8 @@ export async function register(req, res) {
         .status(409)
         .json({ message: "Nombre de usuario ya registrado." });
 
-    const expirationDate = new Date();
-    expirationDate.setMonth(expirationDate.getMonth() + 1); // 1 mes de expiración
+   const expirationDate = new Date();
+   expirationDate.setMonth(expirationDate.getMonth() + 1); // 1 mes de expiración
 
     // Crear un nuevo usuario y guardar en la base de datos
     const newUser = userRepository.create({
