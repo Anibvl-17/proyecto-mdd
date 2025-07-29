@@ -9,6 +9,7 @@ import Error404 from '@pages/Error404'
 import Users from '@pages/Users'
 import Profile from '@pages/Profile'
 import ProtectedRoute from '@components/ProtectedRoute'
+import Certificate from '@pages/Certificate'
 import Activities from "@pages/Activities";
 
 const router = createBrowserRouter([
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "/certificate",
+        element : < Certificate />
       }
     ],
   },
