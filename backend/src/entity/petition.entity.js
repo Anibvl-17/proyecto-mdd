@@ -17,7 +17,7 @@ export const PetitionEntity = new EntitySchema({
         },
         title:{
             type: String,
-            nullable: true,
+            nullable: false,
         },
         description: {
             type: String,
