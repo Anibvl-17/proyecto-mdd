@@ -8,10 +8,12 @@ export const createValidation = Joi.object({
         .max(50)
         .pattern(/^[a-zA-Z0-9\s]+$/)
         .allow("")
+        .required()
         .messages({
             "string.pattern.base": "El título solo puede contener letras y números.",
             "string.min": "El título debe tener al menos 3 caracteres.",
             "string.max": "El título no puede exceder los 50 caracteres.",
+            "string.empty": "El título es obligatorio.",
         }),
     description: Joi.string()
         .min(50)
