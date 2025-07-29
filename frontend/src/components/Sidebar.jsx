@@ -1,7 +1,8 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "@services/auth.service.js";
-import { FaHome, FaUsers, FaSignOutAlt, FaRegEdit} from "react-icons/fa";
-import { CgProfile} from "react-icons/cg";
+import { FaHome, FaUsers, FaSignOutAlt, FaRegEdit } from "react-icons/fa";
+import { CgProfile } from "react-icons/cg";
+import { PiCertificateFill } from "react-icons/pi";
 import "@styles/Sidebar.css";
 
 const Sidebar = () => {
@@ -42,8 +43,13 @@ const Sidebar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to = "/petitions">
+            <NavLink to="/petitions">
               <FaRegEdit className="icon"/> Peticiones
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/certificate">
+              <PiCertificateFill className="icon"/> Certificado
             </NavLink>
           </li>
           <li style={{ height: "70%" }}/>

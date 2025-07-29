@@ -10,6 +10,7 @@ import Users from '@pages/Users'
 import Profile from '@pages/Profile'
 import ProtectedRoute from '@components/ProtectedRoute'
 import Petitions from "@pages/Petitions";
+import Certificate from '@pages/Certificate'
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/petitions",
         element: <Petitions/>
+      },
+      {
+        path: "/certificate",
+        element : < Certificate />
       }
     ],
   },
