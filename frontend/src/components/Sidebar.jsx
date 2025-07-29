@@ -2,6 +2,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "@services/auth.service.js";
 import { FaHome, FaUsers, FaSignOutAlt } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
+import { PiCertificateFill } from "react-icons/pi";
+
 import "@styles/Sidebar.css";
 
 const Sidebar = () => {
@@ -39,6 +41,11 @@ const Sidebar = () => {
           <li>
             <NavLink to="/profile">
               <CgProfile className="icon"/> Perfil
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/certificate">
+              <PiCertificateFill className="icon"/> Certificado
             </NavLink>
           </li>
           <li style={{ height: "70%" }}/>
