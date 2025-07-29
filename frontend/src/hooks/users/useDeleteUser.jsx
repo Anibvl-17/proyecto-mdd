@@ -3,7 +3,7 @@ import { deleteUser } from "@services/user.service";
 
 async function confirmDeleteUser() {
   const result = await Swal.fire({
-    title: "¿Estás seguro?",
+    title: "Se eliminará tanto el usuario como su certificado de residencia, ¿Estás seguro?",
     text: "No podrás deshacer esta acción",
     icon: "warning",
     showCancelButton: true,
