@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "@services/auth.service.js";
-import { FaHome, FaUsers, FaSignOutAlt } from "react-icons/fa";
-import { CgProfile } from "react-icons/cg";
+import { FaHome, FaUsers, FaSignOutAlt, FaRegEdit} from "react-icons/fa";
+import { CgProfile} from "react-icons/cg";
 import "@styles/Sidebar.css";
 
 const Sidebar = () => {
@@ -39,6 +39,11 @@ const Sidebar = () => {
           <li>
             <NavLink to="/profile">
               <CgProfile className="icon"/> Perfil
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to = "/petitions">
+              <FaRegEdit className="icon"/> Peticiones
             </NavLink>
           </li>
           <li style={{ height: "70%" }}/>
