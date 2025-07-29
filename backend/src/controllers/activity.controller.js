@@ -19,7 +19,9 @@ export async function getActivities(req, res) {
 
     // Las actividades pasadas no son visibles para los vecinos que no forman parte de la
     // directiva, por lo tanto se filtran.
-    if (req.user.rol !== "administrador") {
+    // !!! Para utilizar desde el frontend, se debe usar req.user.role
+    //     Para utilizar desde el backend, se debe usar req.user.rol
+    if (req.user.role !== "administrador") {
       const visibleActivities = activities.filter((activity) => activity.date > new Date())
       return res
         .status(200)
