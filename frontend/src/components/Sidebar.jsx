@@ -32,7 +32,7 @@ const Sidebar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/home">
+            <NavLink to="/activities">
               <FaEdit className="icon"/> Actividades
             </NavLink>
           </li>
