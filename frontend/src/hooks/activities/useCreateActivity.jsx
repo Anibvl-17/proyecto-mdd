@@ -50,9 +50,7 @@ async function createActivityInfo() {
       }
 
       if (/^[0-9]+$/.test(title)) {
-        Swal.showValidationMessage(
-          "El título debe contener al menos 1 letra."
-        )
+        Swal.showValidationMessage("El título debe contener al menos 1 letra.");
       }
 
       if (!/^[a-zA-Z0-9 áéíóúÁÉÍÓÚñÑ]+$/.test(title)) {
@@ -69,7 +67,10 @@ async function createActivityInfo() {
         return false;
       }
 
-      if (!/^[a-zA-Z0-9., áéíóúÁÉÍÓÚñÑ]+$/.test(description) && description !== "") {
+      if (
+        !/^[a-zA-Z0-9., áéíóúÁÉÍÓÚñÑ]+$/.test(description) &&
+        description !== ""
+      ) {
         Swal.showValidationMessage(
           "La descripción solo puede tener letras, números, puntos y comas."
         );
@@ -86,7 +87,7 @@ async function createActivityInfo() {
         );
         return false;
       }
-      
+
       // Verifica si la fecha es pasada
       if (dateObject < minDateObject) {
         Swal.showValidationMessage("La fecha debe ser futura.");
@@ -142,7 +143,7 @@ export const useCreateActivity = (fetchActivities) => {
       }
     } catch (error) {
       confirmError();
-      console.error("Error al añadir actividad:", error);
+      console.error("Error al crear la actividad:", error);
     }
   };
 

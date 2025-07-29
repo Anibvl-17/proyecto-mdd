@@ -4,7 +4,7 @@ import { deleteActivity } from "@services/activity.service";
 async function confirmDeleteActivity() {
   const result = await Swal.fire({
     title: "¿Estás seguro?",
-    text: "No podrás deshacer esta acción",
+    text: "No podrás deshacer esta acción.",
     icon: "warning",
     showCancelButton: true,
     confirmButtonText: "Sí, eliminar",
@@ -15,8 +15,8 @@ async function confirmDeleteActivity() {
 
 async function confirmAlert() {
   await Swal.fire({
-    title: "Actividad eliminado",
-    text: "La actividad ha sido eliminada correctamente",
+    title: "Actividad eliminada",
+    text: "La actividad ha sido eliminada correctamente.",
     icon: "success",
     confirmButtonText: "Aceptar",
   });
@@ -43,7 +43,7 @@ export const useDeleteActivity = (fetchActivities) => {
         }
       }
     } catch (error) {
-      console.error("Error al eliminar usuario", error);
+      console.error("Error al eliminar actividad:", error);
       confirmError();
     }
   }

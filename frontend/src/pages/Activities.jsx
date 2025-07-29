@@ -14,6 +14,7 @@ const Activities = () => {
   const user = JSON.parse(sessionStorage.getItem("usuario")) || "";
   const userRole = user?.rol;
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     fetchActivities();
   }, []);
@@ -76,7 +77,7 @@ const Activities = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="4">No hay actividades disponibles</td>
+                <td colSpan="4">No hay actividades disponibles.</td>
               </tr>
             )}
           </tbody>

@@ -53,7 +53,7 @@ async function editActivityInfo(activity) {
 
       if (title.length < 5 || title.length > 50) {
         Swal.showValidationMessage(
-          "El título debe tener entre 5 y 50 caracteres"
+          "El título debe tener entre 5 y 50 caracteres."
         );
         return false;
       }
@@ -119,7 +119,7 @@ async function editActivityInfo(activity) {
 async function confirmAlert() {
   await Swal.fire({
     title: "Actividad actualizada",
-    text: "La actividad se actualizó exitosamente",
+    text: "La actividad se actualizó exitosamente.",
     icon: "success",
     timer: 2000,
     confirmButtonText: "Aceptar",
