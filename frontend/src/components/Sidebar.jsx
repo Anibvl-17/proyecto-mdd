@@ -22,7 +22,7 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar">
-      <h2>Metodología de Desarrollo</h2>
+      <h2>Junta de Vecinos</h2>
       <nav>
         <ul>
           <li>
