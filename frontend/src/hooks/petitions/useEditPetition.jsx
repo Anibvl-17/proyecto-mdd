@@ -22,7 +22,7 @@ async function editPetitionAlert(currentTitle, currentDescription) {
                 return false;
             }
 
-            if (value && !/^[a-zA-Z0-9\s]+$/.test(value)) {
+            if (value && !/^[a-zA-Z0-9 áéíóúÁÉÍÓÚñÑ]+$/.test(value)) {
                 Swal.showValidationMessage("El título solo puede contener letras, números y espacios.");
                 return false;
             }

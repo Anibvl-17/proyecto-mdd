@@ -31,7 +31,7 @@ async function addPetitionPopup() {
                 Swal.showValidationMessage("El título debe tener entre 3 y 50 caracteres.");
                 return false;
             }
-            if (!/^[a-zA-Z0-9\s]+$/.test(title)) {
+            if (!/^[a-zA-Z0-9 áéíóúÁÉÍÓÚñÑ]+$/.test(title)) {
                 Swal.showValidationMessage("El título solo puede contener letras, números y espacios.");
                 return false;
             }
