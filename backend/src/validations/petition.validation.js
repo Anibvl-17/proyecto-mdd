@@ -6,7 +6,7 @@ export const createValidation = Joi.object({
     title: Joi.string()
         .min(3)
         .max(50)
-        .pattern(/^[a-zA-Z0-9\s]+$/)
+        .pattern(/^[a-zA-Z0-9 áéíóúÁÉÍÓÚñÑ]+$/)
         .allow("")
         .required()
         .messages({
@@ -34,7 +34,7 @@ export const updateValidation = Joi.object({
     title: Joi.string()
         .min(3)
         .max(50)
-        .pattern(/^[a-zA-Z0-9\s]+$/)
+        .pattern(/^[a-zA-Z0-9 áéíóúÁÉÍÓÚñÑ]+$/)
         .allow("")
         .messages({
             "string.pattern.base": "El título solo puede contener letras y números.",
