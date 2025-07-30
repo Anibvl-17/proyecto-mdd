@@ -11,6 +11,7 @@ import Profile from '@pages/Profile'
 import ProtectedRoute from '@components/ProtectedRoute'
 import Petitions from "@pages/Petitions";
 import Certificate from '@pages/Certificate'
+import Activities from "@pages/Activities";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
+      },
+      {
+        path: "/activities",
+        element: <Activities />
       },
       {
         path: "/users",

@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "@services/auth.service.js";
-import { FaHome, FaUsers, FaSignOutAlt, FaRegEdit } from "react-icons/fa";
+import { FaHome, FaUsers, FaSignOutAlt, FaRegEdit, FaEdit } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { PiCertificateFill } from "react-icons/pi";
 import "@styles/Sidebar.css";
@@ -28,6 +28,11 @@ const Sidebar = () => {
           <li>
             <NavLink to="/home">
               <FaHome className="icon"/> Inicio
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/activities">
+              <FaEdit className="icon"/> Actividades
             </NavLink>
           </li>
           {userRole === "administrador" && (
