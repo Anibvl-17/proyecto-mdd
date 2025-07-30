@@ -2,7 +2,6 @@
 
 import Joi from "joi";
 
-
 const domainEmailValidator = (value, helpers) => {
   if (!value.endsWith("@gmail.com") && !value.endsWith("@gmail.cl")) {
     return helpers.message(
