@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { jwtDecode } from "jwt-decode";
 import LoginRegisterForm from "@components/LoginRegisterForm";
 import { loginService } from "@services/auth.service.js";
 import luckyCat from "@assets/LuckyCat.png";
@@ -10,18 +11,26 @@ const Login = () => {
   const [loginError, setLoginError] = useState("");
 
   // Función que maneja el envío del formulario de inicio de sesión
-  const loginSubmit = async (data) => {
-    try {
-      const response = await loginService(data);
-      if (response.request.status === 200) {
-        navigate("/home");
-      } else {
-        setLoginError("Usuario o contraseña incorrectos");
-      }
-    } catch (error) {
-      console.error(error);
+const loginSubmit = async (data) => {
+  try {
+    const response = await loginService(data);
+    const { accessToken } = response.data;
+    if (response.request.status === 200 && accessToken) {
+      localStorage.setItem("token", accessToken); // ✅ guardar el token
+      // Decodificar el token para obtener el usuario y rol real
+      const { username, email, rut, role, rol } = jwtDecode(accessToken);
+      const userRole = role || rol;
+      localStorage.setItem("user", JSON.stringify({ username, email, rut, role: userRole }));
+      window.dispatchEvent(new Event("userChanged"));
+      navigate("/home");
+    } else {
+      setLoginError("Usuario o contraseña incorrectos");
     }
-  };
+  } catch (error) {
+    console.error(error);
+    setLoginError("Error al iniciar sesión");
+  }
+};
 
   return (
     <main className="page-root">
@@ -35,4 +44,7 @@ const Login = () => {
   );
 };
 
+// Al cerrar sesión, eliminar usuario y disparar evento
+localStorage.removeItem("user");
+window.dispatchEvent(new Event("userChanged"));
 export default Login;
