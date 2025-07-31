@@ -39,12 +39,16 @@ export async function register(req, res) {
         .status(409)
         .json({ message: "Nombre de usuario ya registrado." });
 
+   const expirationDate = new Date();
+   expirationDate.setMonth(expirationDate.getMonth() + 1); // 1 mes de expiración
+
     // Crear un nuevo usuario y guardar en la base de datos
     const newUser = userRepository.create({
       username,
       email,
       rut,
       password: await encryptPassword(password),
+      expirationDate,
     });
     await userRepository.save(newUser);
 
@@ -83,10 +87,11 @@ export async function login(req, res) {
 
     // Generar un token JWT y enviarlo al cliente
     const payload = {
+      id: userFound.id,
       username: userFound.username,
       email: userFound.email,
       rut: userFound.rut,
-      rol: userFound.role,
+      role: userFound.role,
     };
     const accessToken = jwt.sign(payload, SESSION_SECRET, { expiresIn: "1d" });
 

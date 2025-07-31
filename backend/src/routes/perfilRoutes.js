@@ -1,11 +1,27 @@
-const express = require('express');
-const router = express.Router();
+"use strict";
 
-const { getPerfil, updatePerfil } = require('../controllers/perfilController');
-const authMiddleware = require('../middlewares/auth');
-const { validarActualizacionPerfil } = require('../validations/user.validation');
+import { Router } from "express";
+import { 
+  getMyProfile, 
+  updateMyProfile 
+} from "../controllers/perfilRoutes.controller.js";
 
-router.get('/', authMiddleware, getPerfil);
-router.put('/', authMiddleware, validarActualizacionPerfil, updatePerfil);
+import { authenticateJwt } from "../middleware/authentication.middleware.js";
 
-module.exports = router;
+const router = Router();
+
+// Middleware global para asegurar que el usuario esté autenticado
+router.use(authenticateJwt);
+
+/**
+ * Rutas de perfil de usuario
+ * - Solo el usuario autenticado puede ver y editar su propio perfil
+ */
+
+// Obtener perfil del usuario autenticado
+router.get("/", getMyProfile);
+
+// Actualizar perfil del usuario autenticado
+router.put("/", updateMyProfile);
+
+export default router;
