@@ -2,66 +2,62 @@ import { EditPetition } from "@services/petitions.service.js";
 import Swal from "sweetalert2";
 
 async function editPetitionAlert(currentTitle, currentDescription) {
-    let petitionTitle = currentTitle;
-    let petitionDescription = currentDescription;
-
-    const { value: titleValue } = await Swal.fire({
-        title: "Editar título de la petición",
-        input: "text",
-        inputLabel: "Título de la petición",
-        inputValue: currentTitle,
+    const { value: formValues } = await Swal.fire({
+        title: "Editar petición",
+        html: `
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                    <label for="swal2-petitionTitle" style="margin-bottom: 5px;">Título</label>
+                    <input id="swal2-petitionTitle" class="swal2-input" placeholder="Título de la petición" value="${currentTitle}">
+                </div> 
+                <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                    <label for="swal2-description" style="margin-bottom: 5px;">Descripción</label>
+                    <textarea id="swal2-description" class="swal2-textarea" placeholder="Descripción de la petición" style="width: 100%; height: 100px;">${currentDescription}</textarea>
+                </div>
+            </div>
+        `,
+        focusConfirm: false,
         showCancelButton: true,
-        preConfirm: (value) => {
-            if (!value) {
+        confirmButtonText: "Editar",
+        preConfirm: () => {
+            const title = document.getElementById("swal2-petitionTitle").value.trim();
+            const description = document.getElementById("swal2-description").value.trim();
+
+            if (!title) {
                 Swal.showValidationMessage("El título es obligatorio.");
                 return false;
             }
-
-            if (value && (value.length < 3 || value.length > 50)) {
+            if (title.length < 3 || title.length > 50) {
                 Swal.showValidationMessage("El título debe tener entre 3 y 50 caracteres.");
                 return false;
             }
-
-            if (value && !/^[a-zA-Z0-9 áéíóúÁÉÍÓÚñÑ]+$/.test(value)) {
+            if (!/^[a-zA-Z0-9 áéíóúÁÉÍÓÚñÑ]+$/.test(title)) {
                 Swal.showValidationMessage("El título solo puede contener letras, números y espacios.");
                 return false;
             }
 
-            return value;
-        },
+            if (!description) {
+                Swal.showValidationMessage("La descripción es obligatoria.");
+                return false;
+            }
+            if (description.length < 50 || description.length > 400) {
+                Swal.showValidationMessage("La descripción debe tener entre 50 y 400 caracteres.");
+                return false;
+            }
+
+            return { title, description };
+        }
     });
 
-    if (!titleValue) return null;
-    petitionTitle = titleValue;
+    if (!formValues) return null;
 
-    const { value: descValue } = await Swal.fire({
-        title: "Editar descripción de la petición",
-        input: "text",
-        inputLabel: "Descripción de la petición",
-        inputValue: currentDescription,
-        showCancelButton: true,
-        preConfirm: (value) => {
-        if (!value) {
-            Swal.showValidationMessage("La descripción es obligatoria.");
-            return false;
-        }
+    return {
+        title: formValues.title,
+        description: formValues.description
+    };
+}
 
-        if (value.length < 50 || value.length > 400) {
-            Swal.showValidationMessage("La descripción debe tener entre 50 y 400 caracteres.");
-            return false;
-        }
-
-        return value;
-        },
-    });
-
-    if (!descValue) return null;
-    petitionDescription = descValue;
-
-    return { title: petitionTitle, description: petitionDescription };
-    }
-
-    export const useEditPetition = (fetchPetitions) => {
+export const useEditPetition = (fetchPetitions) => {
     const handleEditPetition = async (petitionId, currentTitle = "", currentDescription = "", isReviewed = false) => {
         if (isReviewed){
             Swal.fire({
