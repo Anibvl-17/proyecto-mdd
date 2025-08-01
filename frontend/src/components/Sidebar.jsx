@@ -1,8 +1,11 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "@services/auth.service.js";
+
 import { FaHome, FaUsers, FaSignOutAlt, FaRegEdit, FaEdit } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { PiCertificateFill } from "react-icons/pi";
+import { GrSelection } from "react-icons/gr";
+
 import "@styles/Sidebar.css";
 
 const Sidebar = () => {
@@ -55,6 +58,11 @@ const Sidebar = () => {
           <li>
             <NavLink to="/certificate">
               <PiCertificateFill className="icon"/> Certificado
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/election">
+              <GrSelection className="icon"/> Elecciones
             </NavLink>
           </li>
           <li style={{ height: "70%" }}/>

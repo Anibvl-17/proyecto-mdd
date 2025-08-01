@@ -20,6 +20,13 @@ export const createElectionValidation = Joi.object({
       "number.base": "El periodo debe ser un número.",
       "any.only": "El periodo debe ser 3 o 4 años."
     }),
+
+  activa: Joi.boolean()
+    .optional()
+    .messages({
+      "boolean.base": "El campo activa debe ser booleano."
+    })
+
 });
 
 
@@ -54,4 +61,3 @@ export const registerVoteValidation = Joi.object({
       "number.base": "El ID de la elección debe ser un número."
     }),
 });
-
