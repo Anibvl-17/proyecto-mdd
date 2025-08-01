@@ -15,17 +15,7 @@ async function confirmDeletePetition() {
 }
 
 export const useDeletePetition = (fetchPetitions) => {
-    const handleDeletePetition = async(petitionId, isReviewed = false) => {
-        if (isReviewed){
-            Swal.fire({
-                icon: "warning",
-                title: "No se puede eliminar",
-                text: "La petición ya fue revisada y no puede ser eliminada.",
-                confirmButtonText: "Aceptar",
-            });
-            return;
-        }
-
+    const handleDeletePetition = async(petitionId) => {
         try{
             const isConfirmed = await confirmDeletePetition();
             if (isConfirmed){
