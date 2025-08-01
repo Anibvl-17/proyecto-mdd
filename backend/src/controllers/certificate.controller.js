@@ -10,29 +10,46 @@ import {
 function generateCertificate({ rut, username, direction, reason, createdAt }) {
   const fechaEmision = new Date(createdAt).toLocaleDateString("es-CL");
   return `
-      <div style="font-family: Arial, sans-serif; border: 2px solid #333; padding: 24px; max-width: 600px;">
-        <h2 style="text-align:center;">Certificado de Residencia</h2>
-        <p>La Junta de Vecinos certifica que:</p>
-        <p><strong>Nombre completo:</strong> ${username}</p>
-        <p><strong>Rut:</strong> ${rut}</p>
-        <p><strong>Dirección:</strong> ${direction}</p>
-        <p><strong>Fecha de emisión:</strong> ${fechaEmision}</p>
-        <p><strong>Finalidad:</strong> ${reason}</p>
-        <p><strong>Entidad emisora:</strong> Junta de Vecinos</p>
-        <br>
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <div>
-            <img src="https://in.pinterest.com/pin/776730267022763436/" alt="Sello" width="80"/>
-            <p style="margin:0;">Sello</p>
-          </div>
-          <div style="text-align:center;">
-            <p style="margin:0;">__________________________</p>
-            <p style="margin:0;"> Junta de vecinos</p>
-            <p style="margin:0;">Firma</p>
-          </div>
-        </div>
+    <div style="
+      font-family: 'Times New Roman', serif;
+      color: #000;
+      width: 100%;
+      max-width: 780px;
+      padding: 30px 40px;
+      margin: 0 auto;
+      line-height: 1.8;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      box-sizing: border-box;
+    ">
+      <h1 style="
+        text-align: center;
+        font-size: 22px;
+        text-transform: uppercase;
+        color: #c74483;
+        border-bottom: 3px solid #c74483;
+        padding-bottom: 10px;
+        margin-bottom: 40px;
+      ">Certificado de Residencia</h1>
+
+      <p style="text-align: justify;">
+        El suscrito certifica que don(ña) <strong>${username}</strong>, cédula de identidad <strong>${rut}</strong>, 
+        reside en <strong>${direction}</strong> de la ciudad de Concepción, que pertenece a la circunscripción 
+        geográfica de esta Junta de Vecinos.
+      </p>
+
+      <p style="text-align: justify; margin-top: 20px;">
+        Este certificado es requerido por el(la) interesado(a) para ser presentado con fin <strong>${reason}</strong>.
+      </p>
+
+      <div style="margin-top: 100px; text-align: center;">
+        <p>Presidente</p>
+        <p>Junta de Vecinos</p>
       </div>
-    `;
+
+      <p style="text-align: right; margin-top: 60px;">Concepción, ${fechaEmision}</p>
+    </div>
+  `;
 }
 
 export async function createCertificate(req, res) {
