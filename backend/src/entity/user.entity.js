@@ -35,13 +35,20 @@ export const UserEntity = new EntitySchema({
             default: "user",
         },
         createdAt: {
-            type: "timestamp",
+      type: "timestamp",
             default: () => "CURRENT_TIMESTAMP",
+            nullable: false, 
         },
-        updatedAt: {
+        expirationDate: {
             type: "timestamp",
-            default: () => "CURRENT_TIMESTAMP",
-            onUpdate: () => "CURRENT_TIMESTAMP",
+            nullable: false,
+        },
+    },
+    relations: {
+        certificates: {
+            type: "one-to-many",
+            target: "Certificate",
+            inverseSide: "user",
         },
     },
 });
