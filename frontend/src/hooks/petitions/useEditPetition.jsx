@@ -58,17 +58,7 @@ async function editPetitionAlert(currentTitle, currentDescription) {
 }
 
 export const useEditPetition = (fetchPetitions) => {
-    const handleEditPetition = async (petitionId, currentTitle = "", currentDescription = "", isReviewed = false) => {
-        if (isReviewed){
-            Swal.fire({
-                icon: "warning",
-                title: "No se puede editar",
-                text: "La petición ya fue revisada y no puede ser editada.",
-                confirmButtonText: "Aceptar",
-            });
-            return;
-        }
-
+    const handleEditPetition = async (petitionId, currentTitle = "", currentDescription = "") => {
         try{
             const petitionData = await editPetitionAlert(currentTitle, currentDescription);
             if (!petitionData) return;

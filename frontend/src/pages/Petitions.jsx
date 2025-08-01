@@ -49,7 +49,7 @@ const Petitions = () => {
                                     {userRole === "administrador" && !petition.revised && (
                                         <button className = "revised" onClick={() => handleRevisedPetition(petition.id, petition.revised)}>Marcar revisado</button>
                                     )}
-                                    {petition.userRut === userRut && (
+                                    {petition.userRut === userRut &&  !petition.revised && (
                                         <>
                                             <button className="edit" onClick={() => handleEditPetition(petition.id, petition.title, petition.description, petition.revised)}>Editar</button>
                                             <button className="delete" onClick={() => handleDeletePetition(petition.id, petition.revised)}>Eliminar</button>
